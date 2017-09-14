@@ -1,0 +1,55 @@
+<launch>
+
+  <arg name="model" default="$(find edumip_my_robot)/urdf/edumip_my_robot.xacro"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+
+  <group ns="edumip1">
+  	<param name="tf_prefix" value="edumip1" />
+  	<include file="$(find edumip_my_robot)/launch/edumip_state_pub.launch">
+  		<arg name="edumip_name" value="edumip1"/>
+  		<arg name="edumip_num" value="1"/>
+  	</include>
+  </group>
+
+   <group ns="edumip2">
+  	<param name="tf_prefix" value="edumip2" />
+  	<include file="$(find edumip_my_robot)/launch/edumip_state_pub.launch">
+  		<arg name="edumip_name" value="edumip2"/>
+  		<arg name="edumip_num" value="2"/>
+  	</include>
+  </group>
+
+   <group ns="edumip3">
+  	<param name="tf_prefix" value="edumip3" />
+  	<include file="$(find edumip_my_robot)/launch/edumip_state_pub.launch">
+  		<arg name="edumip_name" value="edumip3"/>
+  		<arg name="edumip_num" value="3"/>
+  	</include>
+  </group>
+
+     <group ns="edumip4">
+  	<param name="tf_prefix" value="edumip4" />
+  	<include file="$(find edumip_my_robot)/launch/edumip_state_pub.launch">
+  		<arg name="edumip_name" value="edumip4"/>
+  		<arg name="edumip_num" value="4"/>
+  	</include>
+
+  </group>
+     <group ns="edumip5">
+  	<param name="tf_prefix" value="edumip5" />
+  	<include file="$(find edumip_my_robot)/launch/edumip_state_pub.launch">
+  		<arg name="edumip_name" value="edumip5"/>
+  		<arg name="edumip_num" value="5"/>
+  	</include>
+  </group>
+
+
+  <!-- Rviz -->
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find edumip_my_robot)/rviz/edumip_my_robot.rviz" />
+
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/> 
+
+</launch>

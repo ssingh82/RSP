@@ -1,0 +1,8 @@
+prefix=/home/ajiang2/RSP/catkin_ws/moving_catkin/devel
+
+Name: usb_cam
+Description: Description of usb_cam
+Version: 0.3.4
+Cflags: -I/home/ajiang2/RSP/catkin_ws/moving_catkin/src/usb_cam/include
+Libs: -L/home/ajiang2/RSP/catkin_ws/moving_catkin/devel/lib -lusb_cam
+Requires: 

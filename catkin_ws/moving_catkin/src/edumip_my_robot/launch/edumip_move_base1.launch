@@ -1,0 +1,52 @@
+<launch>
+  <!-- Edumip num is the only thing you need to change! -->
+  <arg name="edumip_num" value="1"/> 
+
+  <!-- Launch move base -->
+    <node pkg ="move_base" type="move_base" respawn="false" name="move_base1" output="screen">
+      <rosparam file="$(find edumip_my_robot)/costmap/edumip1/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+      <rosparam file="$(find edumip_my_robot)/costmap/edumip1/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+      <rosparam file="$(find edumip_my_robot)/costmap/edumip1/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find edumip_my_robot)/costmap/edumip1/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find edumip_my_robot)/costmap/base_local_planner_params.yaml" command="load" />
+        <!--<remap from="/move_base_simple/goal" to="/move_base_simple/goal/1"/>-->
+        <remap from="/odom" to="/odom/1"/>
+        <remap from="/cmd_vel" to="/edumip/cmd/1"/>
+    </node>
+
+  <!-- Launch Laser Scan Node -->
+  <node pkg="tf_laser" type="tf_laser" name="tf_laser1" args="1 /edumip_scan/1"/>
+	
+  <!-- Launch edumip_nav_publisher custom node -->
+  	<node pkg="edumip_my_robot" type="edumip_nav_publisher" name="edumip_nav_publisher1" args="/edumip_body/1">
+		<remap from="/edumip/state" to="/edumip/state/1"/>
+    <remap from="/joint_states" to="/joint_states/1"/>
+    <remap from="/odom" to="/odom/1"/>
+	</node>
+
+  <!-- Launch Stabilizer Nodes -->
+	<node pkg="edumip_my_robot" type="edumip_tf_stabilizer" name="edumip_tf_stabilizer" args="/edumip_body/1 /edumip_laser/1"/>
+	<node pkg="edumip_my_robot" type="edumip_tf_stabilizer" name="edumip_tf_stabilizer_2" args="/edumip_body/2 /edumip_laser/2"/>
+	<node pkg="edumip_my_robot" type="edumip_tf_stabilizer" name="edumip_tf_stabilizer_3" args="/edumip_body/3 /edumip_laser/3"/>
+	<node pkg="edumip_my_robot" type="edumip_tf_stabilizer" name="edumip_tf_stabilizer_4" args="/edumip_body/4 /edumip_laser/4"/>
+	<node pkg="edumip_my_robot" type="edumip_tf_stabilizer" name="edumip_tf_stabilizer_5" args="/edumip_body/5 /edumip_laser/5"/>
+  
+  <!-- Robot Description -->
+
+  <arg name="model" default="$(find edumip_my_robot)/urdf/edumip_my_robot.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find edumip_my_robot)/rviz/edumip_my_robot.rviz" />
+
+  <param name="robot_description1" command="$(find xacro)/xacro --inorder $(arg model)"/>
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <!-- Launch robot state publisher -->
+    <node name="robot_state_publisher1" pkg="robot_state_publisher" type="state_publisher">
+      <remap from="robot_description" to="robot_description1" />
+      <remap from="joint_states" to="/joint_states/1"/> 
+    </node>
+
+  <!-- Rviz -->
+  <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/--> 
+
+</launch>

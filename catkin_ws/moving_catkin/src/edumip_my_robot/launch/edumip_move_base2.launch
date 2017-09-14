@@ -1,0 +1,43 @@
+<launch>
+  <!-- Edumip num is the only thing you need to change! -->
+  <arg name="edumip_num" value="2"/> 
+
+  <!-- Launch move base -->
+    <node pkg ="move_base" type="move_base" respawn="false" name="move_base2" output="screen">
+      <rosparam file="$(find edumip_my_robot)/costmap/edumip2/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+      <rosparam file="$(find edumip_my_robot)/costmap/edumip2/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+      <rosparam file="$(find edumip_my_robot)/costmap/edumip2/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find edumip_my_robot)/costmap/edumip2/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find edumip_my_robot)/costmap/base_local_planner_params.yaml" command="load" />
+        <remap from="/move_base_simple/goal" to="/move_base_simple/goal/2"/>
+        <remap from="/odom" to="/odom/2"/>
+        <remap from="/cmd_vel" to="/edumip/cmd/2"/>
+    </node>
+
+  <!-- Launch Laser Scan Node -->
+  <node pkg="tf_laser" type="tf_laser" name="tf_laser2" args="2 /edumip_scan/2"/>
+	
+  <!-- Launch edumip_nav_publisher custom node -->
+    <node pkg="edumip_my_robot" type="edumip_nav_publisher" name="edumip_nav_publisher2" args="/edumip_body/2">
+    <remap from="/edumip/state" to="/edumip/state/2"/>
+    <remap from="/joint_states" to="/joint_states/2"/>
+    <remap from="/odom" to="/odom/2"/>
+
+  </node>
+
+
+  <arg name="model" default="$(find edumip_my_robot)/urdf/edumip_my_robot.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find edumip_my_robot)/rviz/edumip_my_robot.rviz" />
+
+  <param name="robot_description2" command="$(find xacro)/xacro --inorder $(arg model)"/>
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <node name="robot_state_publisher2" pkg="robot_state_publisher" type="state_publisher">
+      <remap from="robot_description" to="robot_description2" />
+    <remap from="joint_states" to="/joint_states/2"/> 
+  </node> 
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/> 
+
+</launch>

@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="edumip_robot">
+  <xacro:property name="wheel_separation" value="0.070" />
+  <xacro:property name="wheel_radius" value="0.034" />
+  <xacro:property name="wheel_width" value="0.010" />
+  <xacro:property name="body_height" value="0.1" />
+  <xacro:property name="body_width" value="0.050" />
+  <xacro:property name="body_length" value="0.035" />
+  <xacro:property name="edumip_name" value="edumip_body"/>
+
+  <link name="${edumip_name}">
+    <visual>
+      <origin xyz="0 0 ${wheel_radius}"/>
+      <geometry>
+        <box size="${body_length} ${body_width} ${body_height}"/>
+      </geometry>
+      <material name="body_color">
+        <color rgba="0 1 0 .8"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 ${wheel_radius}"/>
+      <geometry>
+        <box size="${body_length} ${body_width} ${body_height}"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz = "0 0 -${wheel_radius}"/>
+      <mass value="10"/>
+      <inertia ixx="1e-3" ixy="0.0" ixz="0.0" iyy="1e-3" iyz="0.0" izz="1e-3"/>
+    </inertial>
+  </link>
+
+  <link name="wheelL">
+    <visual>
+     <origin rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+      </geometry>
+      <material name="wheel_color">
+        <color rgba="1 0 0 .8"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin rpy="1.57 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="${0.0833*10*(3*wheel_radius*wheel_radius+ wheel_width*wheel_width)}" ixy="0.0" ixz="0.0" iyy="${0.0833*10*(3*wheel_radius*wheel_radius + wheel_width*wheel_width)}" iyz="0.0" izz="${0.5*10*wheel_radius*wheel_radius}"/>
+    </inertial>    
+  </link>
+
+  <link name="wheelR">
+    <visual>
+     <origin rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+      </geometry>
+      <material name="wheel_color">
+        <color rgba="1 0 0 .8"/>
+      </material>
+    </visual>
+
+    <collision>
+      <origin rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin rpy="1.57 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="${0.0833*10*(3*wheel_radius*wheel_radius+ wheel_width*wheel_width)}" ixy="0.0" ixz="0.0" iyy="${0.0833*10*(3*wheel_radius*wheel_radius + wheel_width*wheel_width)}" iyz="0.0" izz="${0.5*10*wheel_radius*wheel_radius}"/>
+    </inertial>     
+  </link>
+
+  <joint name="jointL" type="continuous">
+    <origin xyz="0 0.035 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <parent link="${edumip_name}"/>
+    <child link="wheelL"/> 
+  </joint>
+
+  <joint name="jointR" type="continuous">
+    <origin xyz="0 -0.035 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <parent link="${edumip_name}"/>
+    <child link="wheelR"/>
+  </joint>
+
+</robot>

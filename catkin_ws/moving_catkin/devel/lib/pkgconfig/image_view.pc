@@ -1,0 +1,8 @@
+prefix=/home/ajiang2/RSP/catkin_ws/moving_catkin/devel
+
+Name: image_view
+Description: Description of image_view
+Version: 1.12.20
+Cflags: -I/home/ajiang2/RSP/catkin_ws/moving_catkin/devel/include
+Libs: -L/home/ajiang2/RSP/catkin_ws/moving_catkin/devel/lib 
+Requires: dynamic_reconfigure

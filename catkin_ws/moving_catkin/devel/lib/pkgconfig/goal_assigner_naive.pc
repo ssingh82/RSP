@@ -1,0 +1,8 @@
+prefix=/home/ajiang2/RSP/catkin_ws/moving_catkin/devel
+
+Name: goal_assigner_naive
+Description: Description of goal_assigner_naive
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ajiang2/RSP/catkin_ws/moving_catkin/devel/lib 
+Requires: 

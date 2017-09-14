@@ -1,0 +1,27 @@
+<launch>
+	<node pkg="goal_twist" type="edumip_goal_broadcaster" name="goal_broadcaster_1" args="goal">
+	</node>
+	<node pkg="goal_twist" type="edumip_goal_listener" name="goal_listener" args="edumip_body/1 goal">
+		<remap from="/edumip/cmd" to="/edumip/cmd/1" />
+	</node>
+	
+  <!-- Launch edumip_robot_publisher custom node -->
+  	<node pkg="edumip_my_robot" type="edumip_my_robot_publisher" name="edumip_publisher">
+		<remap from="/edumip/state" to="/edumip/state/1"/>
+	</node>
+
+  <arg name="model" default="$(find edumip_my_robot)/urdf/edumip_my_robot.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find edumip_my_robot)/rviz/edumip_my_robot.rviz" />
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <!-- Launch robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+  
+  <!-- Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+</launch>

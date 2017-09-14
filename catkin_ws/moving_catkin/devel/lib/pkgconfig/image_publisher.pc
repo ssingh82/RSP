@@ -1,0 +1,8 @@
+prefix=/home/ajiang2/RSP/catkin_ws/moving_catkin/devel
+
+Name: image_publisher
+Description: Description of image_publisher
+Version: 1.12.20
+Cflags: -I/home/ajiang2/RSP/catkin_ws/moving_catkin/devel/include
+Libs: -L/home/ajiang2/RSP/catkin_ws/moving_catkin/devel/lib 
+Requires: 

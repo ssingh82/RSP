@@ -1,0 +1,40 @@
+<launch>
+	<arg name="marker_size" default="8" />
+	<arg name="max_new_marker_error" default="0.08" />
+	<arg name="max_track_error" default="0.4" />
+
+	<!-- arg name="cam_image_topic" default="/wide_stereo/left/image_color" -->
+	<arg name="cam_image_topic" default="/usb_cam/image_raw" />
+	<!-- arg name="cam_info_topic" default="/wide_stereo/left/camera_info" -->
+	<arg name="cam_info_topic" default="/usb_cam/camera_info" />
+	<arg name="output_frame" default="camera_base" />
+
+	<arg name="static_trans" default="0 0 0 0 0 0"/>
+        <arg name="world_trans" default="0 0 1.9765 1.57 3.1415 0"/>
+        <arg name="edumip1" default="ar_marker_13 /edumip1/edumip_laser"/>
+        <arg name="edumip2" default="ar_marker_16 /edumip2/edumip_laser"/>
+        <!-- Change AR tags -->
+        <arg name="edumip3" default="ar_marker_3 /edumip3/edumip_laser"/> 
+        <arg name="edumip4" default="ar_marker_4 /edumip4/edumip_laser"/> 
+        <arg name="edumip5" default="ar_marker_5 /edumip5/edumip_laser"/> 
+        <arg name="world_name" default="camera_base world"/>
+        <!-- Change AR Tags -->
+
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen">
+		<param name="marker_size"           type="double" value="$(arg marker_size)" />
+		<param name="max_new_marker_error"  type="double" value="$(arg max_new_marker_error)" />
+		<param name="max_track_error"       type="double" value="$(arg max_track_error)" />
+		<param name="output_frame"          type="string" value="$(arg output_frame)" />
+
+		<remap from="camera_image"  to="$(arg cam_image_topic)" />
+		<remap from="camera_info"   to="$(arg cam_info_topic)" />
+	</node>
+
+	<node pkg="tf" type="static_transform_publisher" name="static_edumip1" args="$(arg static_trans) $(arg edumip1) 100"/>
+        <node pkg="tf" type="static_transform_publisher" name="static_world" args="$(arg world_trans) $(arg world_name) 100"/>
+        <node pkg="tf" type="static_transform_publisher" name="static_edumip2" args="$(arg static_trans) $(arg edumip2) 100"/>
+        <node pkg="tf" type="static_transform_publisher" name="static_edumip3" args="$(arg static_trans) $(arg edumip3) 100"/>
+        <node pkg="tf" type="static_transform_publisher" name="static_edumip4" args="$(arg static_trans) $(arg edumip4) 100"/>
+        <node pkg="tf" type="static_transform_publisher" name="static_edumip5" args="$(arg static_trans) $(arg edumip5) 100"/>
+
+</launch>

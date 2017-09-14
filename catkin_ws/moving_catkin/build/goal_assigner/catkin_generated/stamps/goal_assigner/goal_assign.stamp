@@ -1,0 +1,6 @@
+#! /usr/bin/env python
+
+import goal_assigner.goal_assigner
+
+if __name__ == '__main__':
+	goal_assigner.goal_assigner.main()

@@ -1,0 +1,8 @@
+prefix=/home/ajiang2/RSP/catkin_ws/moving_catkin/devel
+
+Name: goal_assigner
+Description: Description of goal_assigner
+Version: 0.0.0
+Cflags: -I/home/ajiang2/RSP/catkin_ws/moving_catkin/src/goal_assigner/include
+Libs: -L/home/ajiang2/RSP/catkin_ws/moving_catkin/devel/lib -lgoal_assigner
+Requires: python-scipy roscpp rospy std_msgs tf

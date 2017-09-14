@@ -1,0 +1,3 @@
+ <launch> 
+  <node pkg="goal_assigner_naive" type="goal_assigner_3" name="goal_assigner" />
+</launch>

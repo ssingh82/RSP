@@ -1,0 +1,24 @@
+<launch>
+
+  <!-- Launch Joy-->
+    <node pkg="joy" type="joy_node" name="joystick"/>
+    <node pkg="joy_twist" type="joy_twist" name="joy_twist"/>
+
+  <!-- Launch edumip_robot_publisher custom node -->
+  	<node pkg="edumip_my_robot" type="edumip_my_robot_publisher" name="edumip_publisher"/>
+
+  <arg name="model" default="$(find edumip_my_robot)/urdf/edumip_my_robot.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find edumip_my_robot)/rviz/edumip_my_robot.rviz" />
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <!-- Launch robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  
+  <!-- Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+</launch>

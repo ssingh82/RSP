@@ -1,0 +1,3 @@
+<launch>
+  <node name="AAA_goal_assigner" pkg="goal_assigner" type="goal_assigner.py" output="screen" respawn="false" args="0 0 0 .5 .5 .5 1 1 1 1.5 1.5 1.5 -1 -1 -1"/>
+</launch>

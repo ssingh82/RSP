@@ -1,0 +1,2 @@
+ar_track_alvar:edumip_msgs:edumip_my_robot:goal_assigner:goal_assigner_naive:goal_twist:image_pipeline/camera_calibration:image_pipeline/depth_image_proc:image_pipeline/image_pipeline:image_pipeline/image_proc:image_pipeline/image_publisher:image_pipeline/image_rotate:image_pipeline/image_view:image_pipeline/stereo_image_proc:joy_twist:learning_joy:r2d2:testbot_description:tf_laser:tf_multi_parser:usb_cam
+-DCATKIN_DEVEL_PREFIX=/home/ajiang2/RSP/catkin_ws/moving_catkin/devel -DCMAKE_INSTALL_PREFIX=/home/ajiang2/RSP/catkin_ws/moving_catkin/install -G Unix Makefiles

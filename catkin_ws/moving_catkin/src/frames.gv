@@ -1,0 +1,9 @@
+digraph G {
+"ar_marker_13" -> "edumip_body1"[label="Broadcaster: /static_edumip1\nAverage rate: 10.192 Hz\nMost recent transform: 1493231359.379 ( -0.086 sec old)\nBuffer length: 4.906 sec\n"];
+"camera_rgb_optical_frame" -> "ar_marker_13"[label="Broadcaster: /ar_track_alvar\nAverage rate: 8.157 Hz\nMost recent transform: 1493231359.194 ( 0.100 sec old)\nBuffer length: 4.904 sec\n"];
+"camera_rgb_optical_frame" -> "world"[label="Broadcaster: /static_world\nAverage rate: 10.192 Hz\nMost recent transform: 1493231359.386 ( -0.092 sec old)\nBuffer length: 4.906 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1493231359.294"[ shape=plaintext ] ;
+ }->"camera_rgb_optical_frame";
+}

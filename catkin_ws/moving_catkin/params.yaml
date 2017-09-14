@@ -1,0 +1,12 @@
+background_b: 150
+background_g: 86
+background_r: 0
+rosdistro: 'kinetic
+
+  '
+roslaunch:
+  uris: {host_andrew_tfvb__40351: 'http://andrew-TFVB:40351/'}
+rosversion: '1.12.6
+
+  '
+run_id: 1258692e-ea44-11e6-b52b-080027826174

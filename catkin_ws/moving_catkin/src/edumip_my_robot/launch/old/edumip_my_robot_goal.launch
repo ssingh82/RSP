@@ -1,0 +1,68 @@
+<launch>
+
+  <!-- Launch Goals-->
+    <node pkg="goal_twist" type="edumip_goal_broadcaster" name="goal_broadcaster_1">
+        <remap from="/edumip/goal_command" to="/edumip/goal_command/1"/>
+    </node>
+    <node pkg="goal_twist" type="edumip_goal_broadcaster" name="goal_broadcaster_2">
+        <remap from="/edumip/goal_command" to="/edumip/goal_command/2"/>
+    </node>
+<detail>
+    <node pkg="goal_twist" type="edumip_goal_broadcaster" name="goal_broadcaster_3">
+        <remap from="/edumip/goal_command" to="/edumip/goal_command/3"/>
+    </node>
+    <node pkg="goal_twist" type="edumip_goal_broadcaster" name="goal_broadcaster_4">
+        <remap from="/edumip/goal_command" to="/edumip/goal_command/4"/>
+    </node>
+    <node pkg="goal_twist" type="edumip_goal_broadcaster" name="goal_broadcaster_5">
+        <remap from="/edumip/goal_command" to="/edumip/goal_command/5"/>
+    </node>
+
+</detail>
+    <node pkg="goal_twist" type="edumip_goal_listener" name="goal_listener">
+        <param name="edumip_num" value="edumip_body/1" />
+        <param name="goal_num" value="/goal/1" />
+	<remap from="/edumip/cmd" to="/edumip/cmd/1"/>
+    </node>
+    <node pkg="goal_twist" type="edumip_goal_listener" name="goal_listener_2">
+        <param name="edumip_num" value="edumip_body/2" />
+        <param name="goal_num" value="/goal/2"/>
+	<remap from="/edumip/cmd" to="/edumip/cmd/2"/>
+    </node>
+<detail>
+    <node pkg="goal_twist" type="edumip_goal_listener" name="goal_listener_3">
+        <param name="edumip_num" value="edumip_body/3" />
+        <param name="goal_num" value="/goal/3" />
+	<remap from="/edumip/cmd" to="/edumip/cmd/3"/>
+    </node>
+    <node pkg="goal_twist" type="edumip_goal_listener" name="goal_listener_4">
+        <param name="edumip_num" value="edumip_body/4" />
+        <param name="goal_num" value="/goal/4" />
+	<remap from="/edumip/cmd" to="/edumip/cmd/4"/>
+    </node>
+    <node pkg="goal_twist" type="edumip_goal_listener" name="goal_listener_5">
+        <param name="edumip_num" value="edumip_body/5" />
+        <param name="goal_num" value="/goal/5" />
+	<remap from="/edumip/cmd" to="/edumip/cmd/5"/>
+    </node>
+</detail>
+
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find edumip_my_robot)/rviz/edumip_my_robot.rviz" />
+  <param name="use_gui" value="$(arg gui)"/>
+<detail>
+  <!-- Launch edumip_robot_publisher custom node -->
+  	<node pkg="edumip_my_robot" type="edumip_my_robot_publisher" name="edumip_publisher"/>
+
+  <arg name="model" default="$(find edumip_my_robot)/urdf/edumip_my_robot.xacro"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
+
+  <!-- Launch robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+</detail>
+  
+  <!-- Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+</launch>

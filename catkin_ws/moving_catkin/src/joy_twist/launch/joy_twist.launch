@@ -1,0 +1,16 @@
+<launch>
+ <!-- joy node -->
+  <node respawn="true" pkg="joy" type="joy_node" name="joy_twist" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value=".12" />
+  </node>
+
+  <param name="axis_linear" value="1" type="int"/>
+  <param name="axis_angular" value="0" type="int"/>
+  <param name="scale_angular" value="-1" type="double"/> 
+  <param name="scale_linear" value="1" type="double"/>
+
+  <node pkg="joy_twist" type="joy_twist" name="teleop_1">
+    <remap from="edumip/cmd" to="edumip/cmd/1" />
+  </node>
+</launch>

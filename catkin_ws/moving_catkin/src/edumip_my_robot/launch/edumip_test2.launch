@@ -1,0 +1,25 @@
+<launch>
+
+  <!-- Launch Goals-->
+    <node pkg="goal_twist" type="edumip_goal_broadcaster" name="goal_broadcaster_1" args="goal/1">
+	<remap from="/edumip/goal_command" to="/edumip/goal_command/1"/>
+    </node>
+    <node pkg="goal_twist" type="edumip_goal_broadcaster" name="goal_broadcaster_2" args="goal/5">
+	<remap from="/edumip/goal_command" to="/edumip/goal_command/5"/>
+    </node>
+
+    <node pkg="goal_twist" type="edumip_goal_listener" name="goal_listener" args="edumip_body/1 goal/1">
+	<remap from="/edumip/cmd" to="/edumip/cmd/1"/>
+    </node>
+    <node pkg="goal_twist" type="edumip_goal_listener" name="goal_listener_2" args="edumip_body/5 goal/5">
+	<remap from="/edumip/cmd" to="/edumip/cmd/5"/>
+    </node>
+
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find edumip_my_robot)/rviz/edumip_my_robot.rviz" />
+  <param name="use_gui" value="$(arg gui)"/>
+  
+  <!-- Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+</launch>
